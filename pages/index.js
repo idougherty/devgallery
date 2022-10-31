@@ -1,38 +1,19 @@
-import Head from "next/head";
-import NavBar from "pages/components/navbar";
+import Layout from "pages/components/layout";
+import PostList from "pages/components/postList";
 
-function Home({ posts }) {
+export default function Home({ posts }) {
     return (
     <>
-        <Head>
-            <title>Dev Gallery</title>
-            <meta name="description" content="Share your projects with a community of CS tinkerers."></meta>
-        </Head>
-        
-        <NavBar></NavBar>
-        
-        <div>
+        <Layout title="Dev Gallery">
             <h3>All Posts:</h3>
-            <ul>
-            {
-                posts.map(post =>
-                    <li>
-                        <a href={process.env.BASE_URL + "/posts/" + post.id }>
-                            { post.title }
-                        </a>
-                    </li>
-                )
-            }
-            </ul>
-        </div>
+            <PostList posts={ posts } />
+        </Layout>
     </>
     );
 }
-
-export default Home;
   
-export async function getStaticProps(context) {
-    const res = await fetch(process.env.BASE_URL + "/api/posts/");
+export async function getStaticProps() {
+    const res = await fetch(process.env.BASE_URL + "/api/post/all");
     const posts = await res.json();
     
     return {
