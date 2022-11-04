@@ -1,7 +1,18 @@
 import NavBar from "pages/components/navbar";
+import SignInModal from "pages/components/signInModal";
+import SignUpModal from "./signUpModal";
 import Head from "next/head";
+import { useSession } from "next-auth/react";
+import { useState } from "react";
 
-export default function Layout({ children, ...props }) {
+export default function Layout({ children, auth, ...props }) {
+    const [signInModal, setSignInModal] = useState(false);
+    const [signUpModal, setSignUpModal] = useState(false);
+    const { data: session, status } = useSession();
+
+    if(!signUpModal && session && !session.user?.valid)
+        setSignUpModal(true);
+
     return (
     <>
         <Head>
@@ -9,8 +20,13 @@ export default function Layout({ children, ...props }) {
             <meta name="description" content="Share your projects with a community of CS tinkerers."></meta>
         </Head>
 
-        <NavBar />
+        <NavBar openLogin={ () => setSignInModal(true) }/>
         
+        {signInModal && !session && 
+        <SignInModal closeSignIn={ () => setSignInModal(false) } />}
+        
+        {signUpModal && <SignUpModal closeSignUp={ () => setSignUpModal(false) } />}
+
         <main>{ children }</main>
     </>
     )

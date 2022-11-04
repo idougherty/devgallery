@@ -4,7 +4,7 @@ import PostList from "pages/components/postList";
 export default function User({ user }) {
     return (
     <>
-        <Layout title={ "Dev Gallery | " + user.username } >
+        <Layout title={ "Dev Gallery | " + user.username }>
             <h2>{ user.username }'s Posts</h2>
             <PostList posts={ user.posts } />
         </Layout>

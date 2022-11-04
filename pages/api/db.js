@@ -7,18 +7,21 @@ export default function getClient() {
     return client;
 }
 
-export async function findUser(id, username, email) {
+export async function findUser({ _id, username, email }) {
     let user = null;
     let query = [];
 
-    if(id)
-        query.push({ _id: id });
+    if(_id)
+        query.push({ _id: _id });
     
     if(username)
         query.push({ username: username });
     
     if(email)
         query.push({ email: email });
+
+    if(query.length == 0)
+        return null;
 
     try {
         await client.connect();

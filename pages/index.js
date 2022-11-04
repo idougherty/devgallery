@@ -12,7 +12,7 @@ export default function Home({ posts }) {
     );
 }
   
-export async function getStaticProps() {
+export async function getStaticProps(context) {
     const res = await fetch(process.env.BASE_URL + "/api/post/all");
     const posts = await res.json();
     

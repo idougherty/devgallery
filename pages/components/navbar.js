@@ -1,6 +1,6 @@
 import { useSession, signOut } from "next-auth/react";
 
-export default function NavBar() {
+export default function NavBar({ openLogin }) {
     const { data: session, status } = useSession();
 
     return (
@@ -9,10 +9,10 @@ export default function NavBar() {
             <ul>
                 <li><a href={"/"}>Home</a></li>
                 <li><a href={"/search"}>Search</a></li>
-                { !session && !(status == "authenticated") && ( 
-                    <li><a href={"/auth/login"}>Login</a></li>
+                { !session && status != "loading" && ( 
+                    <li onClick={ openLogin }>Login</li>
                 )}
-                { session && (
+                { session?.user?.valid && (
                     <li><a href={"/user/"+session.user.username}>Your profile</a></li>
                 )}
                 { session && (

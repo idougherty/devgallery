@@ -22,7 +22,7 @@ export async function getStaticProps(context) {
     
     const res = await fetch(process.env.BASE_URL + "/api/post/" + id);
     const post = await res.json();
-    
+
     return {
         props: {
             post,
