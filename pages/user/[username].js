@@ -1,12 +1,24 @@
+import { useSession } from "next-auth/react";
 import Layout from "pages/components/layout";
 import PostList from "pages/components/postList";
 
 export default function User({ user }) {
+    const { data: session } = useSession();
+
+    console.log(user.posts)
+
+    const ownsPage = session?.user?.valid 
+        && session.user._id == user._id; 
+
     return (
     <>
         <Layout title={ "Dev Gallery | " + user.username }>
             <h2>{ user.username }'s Posts</h2>
             <PostList posts={ user.posts } />
+
+            { ownsPage && 
+                <button onClick={ () => alert("a") }>Create post!</button>
+            }
         </Layout>
     </>
     );

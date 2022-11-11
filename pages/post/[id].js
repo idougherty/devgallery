@@ -9,9 +9,20 @@ export default function Post({ post }) {
         <Layout title={ post.title }>
             <h2>{ post.title }</h2>
             <h4>
-                <a href={ "/user/" + post.author._id }>View other projects by { post.author.username }</a>
+                <a href={ "/user/" + post.author.username }>View other projects by { post.author.username }</a>
             </h4>
             <p>{ post.content }</p>
+            {
+            post.components.map((component, idx) => {
+                switch(component.type) {
+                    case "paragraph":
+                        return <p key={idx}>{component.content}</p>;
+                    case "header":
+                        return <h3 key={idx}>{component.content}</h3>;
+                    default:
+                }
+            })
+            }
         </Layout>
     </>
     );

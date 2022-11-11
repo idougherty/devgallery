@@ -1,6 +1,6 @@
-import NavBar from "pages/components/navbar";
-import SignInModal from "pages/components/signInModal";
-import SignUpModal from "./signUpModal";
+import NavBar from "pages/components/nav/navbar";
+import SignInModal from "pages/components/auth/signInModal";
+import SignUpModal from "pages/components/auth/signUpModal";
 import Head from "next/head";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
@@ -27,7 +27,7 @@ export default function Layout({ children, auth, ...props }) {
         
         {signUpModal && <SignUpModal closeSignUp={ () => setSignUpModal(false) } />}
 
-        <main>{ children }</main>
+        <main className="container">{ children }</main>
     </>
     )
 }
