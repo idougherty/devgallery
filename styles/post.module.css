@@ -1,0 +1,68 @@
+.postWrapper > *:not(.postControls):focus {
+    outline-offset: 5px;
+    outline-color: var(--theme-accent);
+    box-shadow: none;
+}
+
+.postWrapper {
+    position: relative;
+}
+
+.postControlsWrapper {
+    position: absolute;
+    visibility: hidden;
+    top: 50%;
+    transform: translate(calc(-100% - 10px), -50%);
+}
+
+.postWrapper:hover .postControlsWrapper {
+    visibility: visible;
+}
+
+.postControlsWrapper:hover {
+    visibility: visible;
+}
+
+.postControls {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--theme-white);
+    border-radius: 5px;
+    padding: 5px;
+    gap: 3px;
+}
+
+.postControlsExtender {
+    position: absolute;
+    width: calc(100% + 20px);
+    left: -10px;
+    top: -10%;
+    height: 120%;
+    z-index: -10;
+}
+
+.postControls > .control {
+    font-size: 1.7em;
+    cursor: pointer;
+}
+
+.postControls > .control:hover {
+    color: var(--theme-green);
+}
+
+.submit {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border-style: none;
+    color: white;
+    font-family: inherit;
+    cursor: pointer;
+    background-color: var(--theme-accent);
+    transition: background-color 250ms ease-out;
+}
+
+.submit:hover {
+    background-color: var(--theme-green);
+}

@@ -5,6 +5,7 @@
     --theme-white: #FCFCFF;
     --theme-grey: #F1DFDB;
     --theme-bg: #FEECE7;
+    --theme-green: #2fb66c;
 }
 /* 
 #B5B682
@@ -25,4 +26,8 @@ body {
 .container {
     max-width: 800px;
     margin: 0 auto;
+}
+
+a {
+    color: var(--theme-accent);
 }

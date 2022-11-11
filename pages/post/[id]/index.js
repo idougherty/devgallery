@@ -1,4 +1,5 @@
 import Layout from "pages/components/layout";
+import PostComponent from "./postComponent";
 
 export default function Post({ post }) {
     if(!post)
@@ -13,15 +14,11 @@ export default function Post({ post }) {
             </h4>
             <p>{ post.content }</p>
             {
-            post.components.map((component, idx) => {
-                switch(component.type) {
-                    case "paragraph":
-                        return <p key={idx}>{component.content}</p>;
-                    case "header":
-                        return <h3 key={idx}>{component.content}</h3>;
-                    default:
-                }
-            })
+            post.components.map((component, idx) =>
+                <PostComponent 
+                    key={ idx }
+                    component={ component }/>
+            )
             }
         </Layout>
     </>
