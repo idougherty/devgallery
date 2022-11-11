@@ -1,0 +1,56 @@
+.navbar {
+    padding: 10px 0;
+}
+
+.navbarContent {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    max-width: 850px;
+    margin: 0 auto;
+    font-family: monospace;
+    gap: 25px;
+    padding: 0;
+    list-style: none;
+}
+
+.navbar li {
+    padding: 0;
+    color: var(--theme-main);
+}
+
+.navbar a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 250ms ease-out;
+    font-size: 1.1em;
+}
+
+.navbar a > * {
+    margin: 0;
+}
+
+.title a {
+    font-size: .8em;
+}
+
+.navbar a:not(.title a):hover {
+    text-decoration: underline;
+}
+
+.navbar a:hover {
+    text-decoration: none;
+    color: var(--theme-accent);
+}
+
+.center {
+    margin: 0 auto
+}
+
+.right {
+    margin-left: auto;
+}
+
+.right a {
+    margin-left: 15px;
+}

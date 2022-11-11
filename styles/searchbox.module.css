@@ -1,0 +1,45 @@
+.input {
+    padding: 8px;
+    color: var(--theme-dark);
+    background-color: #3d31;
+    border-color: var(--theme-main);
+    border-style: solid;
+    border-radius: 5px;
+    border-width: 2px;
+    transition-property: background-color, border-color;
+    transition-duration: 250ms;
+    transition-timing-function: ease-out;
+    font-family: monospace;
+}
+
+.input:hover, .input:focus {
+    border-color: var(--theme-accent);
+    background-color: #d331;
+}
+
+.input:focus {
+    outline-style: none;
+    box-shadow: none;
+}
+
+.icon {
+    position: absolute;
+    right: 8px;
+    font-size: 1.2em;
+    height: 100%;
+    pointer-events: none;
+    transition: transform 250ms ease-out;
+}
+
+.input:focus + .icon {
+    transform: scale(1.3);
+}
+
+.form {
+    position: relative;
+    transition: color 250ms ease-out;
+}
+
+.form:hover, .form:focus-within {
+    color: var(--theme-accent);
+}
