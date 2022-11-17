@@ -1,27 +1,31 @@
 import Layout from "pages/components/layout";
-import PostComponent from "./postComponent";
+import PostComponent from "./componentTypes/postComponent";
+import styles from "styles/post.module.css";
 
 export default function Post({ post }) {
     if(!post)
-        return <p>error :(</p>
+        return <p>There was an issue retrieving this post. :(</p>
 
     return (
-    <>
-        <Layout title={ post.title }>
-            <h2>{ post.title }</h2>
+    <Layout title={ post.title }>
+        <div className={styles.post}>
+            <h1>{ post.title }</h1>
+            <p><i>{ post.description }</i></p>
             <h4>
                 <a href={ "/user/" + post.author.username }>View other projects by { post.author.username }</a>
             </h4>
-            <p>{ post.content }</p>
-            {
-            post.components.map((component, idx) =>
-                <PostComponent 
-                    key={ idx }
-                    component={ component }/>
-            )
-            }
-        </Layout>
-    </>
+
+            <div id="components" className={styles.components}>
+            { post.components.map((component, idx) =>
+                <div className={styles.componentWrapper} key={ idx } >
+                    <PostComponent 
+                        key={ idx }
+                        component={ component }/>
+                </div>
+            ) }
+            </div>
+        </div>
+    </Layout>
     );
 }
 

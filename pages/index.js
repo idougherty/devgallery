@@ -3,12 +3,10 @@ import PostList from "pages/components/postList";
 
 export default function Home({ posts }) {
     return (
-    <>
-        <Layout title="Dev Gallery">
-            <h3>All Posts:</h3>
-            <PostList posts={ posts } />
-        </Layout>
-    </>
+    <Layout title="Dev Gallery">
+        <h3>All Posts:</h3>
+        <PostList posts={ posts } />
+    </Layout>
     );
 }
   

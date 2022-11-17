@@ -1,6 +1,7 @@
 import { useSession, signOut } from "next-auth/react";
 import SearchBox from "./searchbox";
 import styles from 'styles/navbar.module.css';
+import { BiLoaderAlt } from "react-icons/bi";
 
 export default function NavBar({ openLogin }) {
     const { data: session, status } = useSession();
@@ -12,7 +13,11 @@ export default function NavBar({ openLogin }) {
                 <a href={"/"}><h1>Dev Gallery</h1></a>
             </li>
             <li className={styles.center}><SearchBox /></li>
-            { !session && status != "loading" && ( 
+            { status == "loading" && ( 
+                <li className={styles.right}>
+                    <BiLoaderAlt className="spinner" fontSize="x-large" />
+                </li>
+            ) || !session && status != "loading" && ( 
                 <li className={styles.right} onClick={ openLogin }>
                     <a href="#">Login</a>
                 </li>

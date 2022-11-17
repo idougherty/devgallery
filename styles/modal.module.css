@@ -10,6 +10,7 @@
     display: grid;
     justify-items: center;
     align-items: center;
+    z-index: 100;
 }
 
 .modal {
@@ -20,6 +21,7 @@
     border-radius: 5px;
     min-width: 200px;
     margin-bottom: 100px;
+    box-shadow: 5px 5px 10px #3653;
 }
 
 .topbar {
@@ -42,64 +44,4 @@
 
 .topbar svg:hover {
     transform: scale(1.2);
-}
-
-.providers {
-    margin-top: 20px;
-    display: flex;
-    justify-content: space-around;
-}
-
-.authButton {
-    cursor: pointer;
-    width: 4em;
-    height: 4em;
-    transition: transform 250ms ease-out;
-}
-
-.authButton:hover {
-    transform: scale(1.2);
-}
-
-.label {
-    display:inline-block;
-    padding-bottom: 5px;
-}
-
-.input {
-    padding: 8px;
-    color: var(--theme-dark);
-    background-color: #0001;
-    border-color: var(--theme-dark);
-    border-style: none;
-    font-family: monospace;
-}
-
-.input:hover, .input:focus {
-    background-color: #4441;
-}
-
-.input:focus {
-    outline-style: none;
-    box-shadow: none;
-}
-
-.error {
-    color: var(--theme-accent);
-}
-
-.submit {
-    width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-    border-style: none;
-    color: white;
-    font-family: inherit;
-    cursor: pointer;
-    background-color: var(--theme-accent);
-    transition: background-color 250ms ease-out;
-}
-
-.submit:hover {
-    background-color: #2fb66c;
 }

@@ -1,33 +1,57 @@
 :root {
-    --theme-main: #005246;
-    --theme-accent: #be5888;
-    --theme-dark: #402E32;
-    --theme-white: #FCFCFF;
-    --theme-grey: #F1DFDB;
-    --theme-bg: #FEECE7;
-    --theme-green: #2fb66c;
+  --theme-main: #005246;
+  --theme-accent: #be5888;
+  --theme-dark: #402E32;
+  --theme-white: #FCFCFF;
+  --theme-grey: #F1DFDB;
+  --theme-bg: #FEECE7;
+  --theme-green: #2fb66c;
 }
-/* 
-#B5B682
-*/
 
 body {
-    margin: 0;
-    font-family: monospace;
-    color: var(--theme-dark);
-    
-    background-color: #FEDCCE;
-    background-image: url("/background.svg");    
-    background-size: calc(max(100vw, 1500px));
-    background-repeat: no-repeat;
-    background-position: top center;
+  margin: 0;
+  font-family: monospace;
+  color: var(--theme-dark);
+  
+  background-color: #FEDCCE;
+  background-image: url("/background.svg");    
+  background-size: calc(max(100vw, 1500px));
+  background-repeat: no-repeat;
+  background-position: top center;
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .container {
-    max-width: 800px;
-    margin: 0 auto;
+  width: 800px;
+  margin: 0 auto;
 }
 
 a {
-    color: var(--theme-accent);
+    color: var(--theme-main);
+}
+
+@keyframes rotating {
+    from {
+      -ms-transform: rotate(0deg);
+      -moz-transform: rotate(0deg);
+      -webkit-transform: rotate(0deg);
+      -o-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    to {
+      -ms-transform: rotate(360deg);
+      -moz-transform: rotate(360deg);
+      -webkit-transform: rotate(360deg);
+      -o-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+
+.spinner {
+    animation: rotating 2s linear infinite;
 }

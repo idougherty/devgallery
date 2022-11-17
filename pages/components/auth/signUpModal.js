@@ -1,7 +1,7 @@
 import { signOut, useSession } from "next-auth/react";
 import { useRef, useState } from "react";
-import { BiX } from "react-icons/bi";
 import styles from "styles/modal.module.css";
+import { Modal, ModalWrapper } from "../modal";
 
 export default function SignUpModal({ closeSignUp }) {
     const form = useRef(null);
@@ -45,13 +45,8 @@ export default function SignUpModal({ closeSignUp }) {
     }
     
     return (
-    <div className={styles.modalWrapper}>
-        <div className={styles.modal}>
-            <div className={styles.topbar}>
-                <h3>Sign Up:</h3>
-                <BiX onClick={ handleClose } />
-            </div>
-
+    <ModalWrapper>
+        <Modal title="Sign Up:" closeFunction={ handleClose }>
             <form ref={ form } onSubmit={ handleSignUp }>
                 <label className={styles.label} name="user">Username:</label><br />
                 <input className={styles.input} name="user" type="text" /><br /><br />
@@ -61,7 +56,7 @@ export default function SignUpModal({ closeSignUp }) {
 
                 <input className={styles.submit} type="submit" />
             </form>
-        </div>
-    </div>
+        </Modal>
+    </ModalWrapper>
     );
 }

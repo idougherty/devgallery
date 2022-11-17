@@ -5,8 +5,6 @@ import PostList from "pages/components/postList";
 export default function User({ user }) {
     const { data: session } = useSession();
 
-    console.log(user.posts)
-
     const ownsPage = session?.user?.valid 
         && session.user._id == user._id; 
 

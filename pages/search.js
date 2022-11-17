@@ -3,13 +3,11 @@ import PostList from "pages/components/postList";
 
 export default function Search({ posts }) {
     return (
-    <>
-        <Layout title="Dev Gallery | Search"> 
-            <h3>Results:</h3>
+    <Layout title="Dev Gallery | Search"> 
+        <h3>Results:</h3>
 
-            <PostList posts={ posts } />
-        </Layout>
-    </>
+        <PostList posts={ posts } />
+    </Layout>
     );
 }
   

@@ -1,10 +1,15 @@
-.postWrapper > *:not(.postControls):focus {
+.post *[contenteditable] {
     outline-offset: 5px;
     outline-color: var(--theme-accent);
     box-shadow: none;
 }
 
-.postWrapper {
+.components {
+    position: relative;
+    z-index: 0;
+}
+
+.componentWrapper {
     position: relative;
 }
 
@@ -15,7 +20,7 @@
     transform: translate(calc(-100% - 10px), -50%);
 }
 
-.postWrapper:hover .postControlsWrapper {
+.componentWrapper:hover .postControlsWrapper {
     visibility: visible;
 }
 
@@ -30,6 +35,7 @@
     background-color: var(--theme-white);
     border-radius: 5px;
     padding: 5px;
+    z-index: 3;
     gap: 3px;
 }
 
@@ -39,19 +45,148 @@
     left: -10px;
     top: -10%;
     height: 120%;
-    z-index: -10;
+    z-index: 2;
 }
 
-.postControls > .control {
+.postControls > * {
     font-size: 1.7em;
     cursor: pointer;
 }
 
-.postControls > .control:hover {
+.postControls > *:hover {
     color: var(--theme-green);
 }
 
+.imageGroup {
+    margin: 30px 0;
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    flex-wrap: wrap;
+    min-height: 100px;
+}
+
+.imageItem {
+    height: 450px;
+    border-radius: 5px;
+}
+
+.imageControls {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 10px);
+    display: flex;
+    flex-direction: row;
+    background-color: var(--theme-white);
+    border-radius: 5px;
+    padding: 5px;
+    gap: 3px;
+    visibility: hidden;
+}
+
+.imageWrapper:hover .imageControls {
+    visibility: visible;
+}
+
+.imageWrapper {
+    position: relative;
+}
+
+.imageControls > * {
+    font-size: 1.7em;
+    cursor: pointer;
+}
+
+.imageControls > *:hover {
+    color: var(--theme-green);
+}
+
+.imageGroupEdit {
+    visibility: hidden;
+    border: none;
+    position: absolute;
+    left: 0;
+    font-size: xx-large;
+    background-color: var(--theme-white);
+    cursor: pointer;
+    border-radius: 5px;
+    color: var(--theme-dark);
+    line-height: 0px;
+    padding: 5px;
+}
+
+.imageGroupEdit:hover {
+    color: var(--theme-green);
+}
+
+.imageGroup:hover .imageGroupEdit {
+    visibility: visible;
+}
+
+.componentMenu {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+}
+
+.menuItem {
+    width: 200px;
+}
+
+.menuItem button {
+    width: 100%;
+}
+
+.menuItem button, .upload::file-selector-button {
+    border-radius: 5px;
+    font-family: inherit;
+    border: none;
+    background-color: #e0e0e0;
+    cursor: pointer;
+}
+
+.upload::file-selector-button {
+    padding: 5px;
+    margin-right: 10px;
+}
+
+.menuItem button:hover, .upload::file-selector-button:hover {
+    background-color: #e8e8e8;
+}
+
+.upload {
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.upload input {
+    display: none;
+}
+
+.menuItem > * {
+    display: inline-block;
+}
+
+.menuItem button h4 {
+    padding: 20px;
+    font-size: 1.2em;
+    margin: 0;
+    color: var(--theme-dark);
+}
+
+.menuItem button svg {
+    vertical-align: baseline;
+    font-size: inherit;
+    display: inline-block;
+    margin-right: 5px;
+}
+
 .submit {
+    margin-top: 20px;
     width: 100%;
     padding: 10px;
     border-radius: 5px;
@@ -59,10 +194,10 @@
     color: white;
     font-family: inherit;
     cursor: pointer;
-    background-color: var(--theme-accent);
+    background-color: var(--theme-green);
     transition: background-color 250ms ease-out;
 }
 
 .submit:hover {
-    background-color: var(--theme-green);
+    background-color: var(--theme-accent);
 }

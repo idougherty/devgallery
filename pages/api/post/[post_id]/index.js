@@ -2,14 +2,14 @@ import getClient from "pages/api/db";
 import { ObjectId } from "mongodb";
 
 export default async function handler(req, res) {
-    const { id } = req.query; 
+    const { post_id } = req.query; 
     const client = getClient();
 
     try {
         await client.connect();
         const db = client.db("devgallery");
 
-        const oid = new ObjectId(id);
+        const oid = new ObjectId(post_id);
         const post = await db.collection("posts")
             .findOne({ _id: oid });
             

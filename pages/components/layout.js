@@ -2,6 +2,7 @@ import NavBar from "pages/components/nav/navbar";
 import SignInModal from "pages/components/auth/signInModal";
 import SignUpModal from "pages/components/auth/signUpModal";
 import Head from "next/head";
+import Footer from "./footer";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 
@@ -14,7 +15,7 @@ export default function Layout({ children, auth, ...props }) {
         setSignUpModal(true);
 
     return (
-    <>
+    <div className="layout">
         <Head>
             <title>{ props.title || "Dev Gallery" }</title>
             <meta name="description" content="Share your projects with a community of CS tinkerers."></meta>
@@ -28,6 +29,8 @@ export default function Layout({ children, auth, ...props }) {
         {signUpModal && <SignUpModal closeSignUp={ () => setSignUpModal(false) } />}
 
         <main className="container">{ children }</main>
-    </>
+
+        <Footer />
+    </div>
     )
 }

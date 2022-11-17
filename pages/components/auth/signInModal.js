@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { getProviders, signIn } from "next-auth/react";
-import { BiX } from "react-icons/bi";
-import styles from "styles/modal.module.css";
+import { Modal, ModalWrapper } from "../modal";
+import styles from "styles/auth.module.css";
 
 export default function SignInModal({ closeSignIn }) {
     const [loading, setLoading] = useState(true);
@@ -19,13 +19,8 @@ export default function SignInModal({ closeSignIn }) {
     }, []);
     
     return (
-    <div className={styles.modalWrapper} onClick={ closeSignIn }>
-        <div onClick={(e) => e.stopPropagation()} className={styles.modal}>
-            <div className={styles.topbar}>
-                <h3>Sign In With: </h3>
-                <BiX onClick={ closeSignIn } />
-            </div>
-
+    <ModalWrapper onClick={ closeSignIn }>
+        <Modal title="Sign In With:" closeFunction={ closeSignIn }>
             {loading && (
                 <p>Loading...</p>
             ) || error && (
@@ -43,7 +38,7 @@ export default function SignInModal({ closeSignIn }) {
             }
             </div>
             }
-        </div>
-    </div>
+        </Modal>
+    </ModalWrapper>
     );
 }
