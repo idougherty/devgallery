@@ -23,6 +23,8 @@ export async function findUser({ _id, username, email }) {
     if(query.length == 0)
         return null;
 
+    const client = getClient();
+
     try {
         await client.connect();
 
@@ -39,6 +41,8 @@ export async function findUser({ _id, username, email }) {
 }
 
 export async function createUser({ _id, email, username }) {
+    const client = getClient();
+    
     try {
         await client.connect();
     
