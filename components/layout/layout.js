@@ -1,6 +1,6 @@
-import NavBar from "pages/components/nav/navbar";
-import SignInModal from "pages/components/auth/signInModal";
-import SignUpModal from "pages/components/auth/signUpModal";
+import NavBar from "components/nav/navbar";
+import SignInModal from "components/auth/signInModal";
+import SignUpModal from "components/auth/signUpModal";
 import Head from "next/head";
 import Footer from "./footer";
 import { useSession } from "next-auth/react";

@@ -1,19 +1,16 @@
-import Layout from "pages/components/layout";
+import Layout from "components/layout/layout";
 import { useEffect, useState } from "react";
 import { BiCheck, BiSync, BiError, BiLoaderAlt } from "react-icons/bi";
-import ComponentList from "./componentList";
+import ComponentList from "components/postEditing/componentList";
 import styles from "styles/post.module.css";
+import { getPost } from "pages/api/post/[post_id]";
+import { getAllPosts } from "pages/api/post/all";
 
 export default function EditPost({ postData }) {
-    if(!postData)
-        return ( <Layout> <p>There was an issue retrieving this post. :(</p> </Layout> )
-
     const [post, setPost] = useState({ ...postData });
     const [syncStatus, setSyncStatus] = useState("synced");
 
     useEffect(() => {
-        console.log(syncStatus);
-
         if(syncStatus != "synced") {
             window.onbeforeunload = () => true;
         } else {
@@ -51,6 +48,9 @@ export default function EditPost({ postData }) {
         post[tag] = e.target.innerText;
         updatePost();
     };
+    
+    if(!postData)
+        return ( <Layout> <p>There was an issue retrieving this post. :(</p> </Layout> )
 
     return (
     <Layout title={ post.title }>
@@ -86,6 +86,8 @@ export default function EditPost({ postData }) {
 EditPost.requireAuth = true;
 EditPost.verifyAuth = (props, user) => {
     const { postData } = props;
+
+    console.log(postData);
     const valid = user._id == postData.author_id;
     const redirectUrl = `/post/${postData._id}`;
 
@@ -94,21 +96,18 @@ EditPost.verifyAuth = (props, user) => {
 
 export async function getStaticProps(context) {
     const { id } = context.params;
-    
-    const res = await fetch(process.env.BASE_URL + "/api/post/" + id);
-    const post = await res.json();
+    const postData = await getPost(id);
 
     return {
         props: {
-            postData: post,
+            postData,
         },
     }
 }
 
 export async function getStaticPaths() {
-    const res = await fetch(process.env.BASE_URL + "/api/post/all");
-    const posts = await res.json();
-    
+    const posts = await getAllPosts();
+
     const paths = posts.map(post => {
         return { params: { id: post._id } }
     });

@@ -1,6 +1,6 @@
 import 'styles/globals.css'
 import { SessionProvider } from "next-auth/react";
-import AuthGuard from './components/auth/authGuard';
+import AuthGuard from 'components/auth/authGuard';
 
 function MyApp({
   Component, 

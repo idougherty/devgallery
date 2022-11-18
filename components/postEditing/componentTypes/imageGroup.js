@@ -1,7 +1,7 @@
 import styles from "styles/post.module.css";
 import { BiCaretLeft, BiCaretRight, BiLoaderAlt, BiTrash, BiUpload } from "react-icons/bi";
 import { useRef, useState } from "react";
-import { Modal, ModalWrapper } from "pages/components/modal";
+import Modal from "components/modal";
 
 export default function ImageGroupComponent({ component, editable, setContent }) {
     const [uploadModal, setUploadModal] = useState(false);
@@ -138,20 +138,18 @@ function ImageUploadModal({ closeFunction, createImage }) {
     }
 
     return (
-    <ModalWrapper closeFunction={ closeFunction }>
-        <Modal title="Upload Image:" closeFunction={ closeFunction }>
-            <form ref={ form } onSubmit={ handleSubmit }>
-                <input className={styles.upload}
-                        type="file" 
-                        name="image"
-                        required /><br/>
-                { error && <p>{ error }</p>}
-                <button className={styles.submit} type="submit">
-                    { loading && <BiLoaderAlt className="spinner" /> || <>Upload</>}
-                </button>
-            </form>
-        </Modal>
-    </ModalWrapper>
+    <Modal title="Upload Image:" closeFunction={ closeFunction }>
+        <form ref={ form } onSubmit={ handleSubmit }>
+            <input className={styles.upload}
+                    type="file" 
+                    name="image"
+                    required /><br/>
+            { error && <p>{ error }</p>}
+            <button className={styles.submit} type="submit">
+                { loading && <BiLoaderAlt className="spinner" /> || <>Upload</>}
+            </button>
+        </form>
+    </Modal>
     )
 }
 

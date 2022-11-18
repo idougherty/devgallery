@@ -1,7 +1,9 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import Layout from "pages/components/layout";
-import PostList from "pages/components/postList";
+import { getAllUsers } from "pages/api/user/all";
+import { getUser } from "pages/api/user/[username]";
+import Layout from "components/layout/layout";
+import PostList from "components/postList";
 import { BiPlusCircle } from "react-icons/bi";
 import styles from "styles/user.module.css"
 
@@ -34,7 +36,7 @@ export default function User({ user }) {
 
     return (
     <Layout title={ "Dev Gallery | " + user.username }>
-        <h2>{ user.username }'s Posts
+        <h2>{ user.username }&apos;s Posts
             { ownsPage && 
                 <button className={styles.createPost} onClick={ createPost }><BiPlusCircle /></button>
             }
@@ -47,9 +49,8 @@ export default function User({ user }) {
 export async function getStaticProps(context) {
     const { username } = context.params;
     
-    const res = await fetch(process.env.BASE_URL + "/api/user/" + username);
-    const user = await res.json();
-    
+    const user = await getUser(username);
+
     return {
         props: {
             user,
@@ -58,8 +59,7 @@ export async function getStaticProps(context) {
 }
 
 export async function getStaticPaths() {
-    const res = await fetch(process.env.BASE_URL + "/api/user/all");
-    const users = await res.json();
+    const users = await getAllUsers();
     
     const paths = users.map(user => {
         return { params: { username: user.username } }

@@ -7,11 +7,9 @@ export default function AuthGuard({ children, pageProps, verifyAuth }) {
     const { data: session, status } = useSession();
     const router = useRouter()
 
-    /* show loading indicator while the auth provider is still initializing */
     if (status == "loading")
         return <LoadingPage />;
     
-    // if auth initialized with a valid user show protected page
     if (status != "loading" && !session)
         return <SignInModal closeSignIn={ () => router.push("/") }/>;
 
@@ -24,6 +22,5 @@ export default function AuthGuard({ children, pageProps, verifyAuth }) {
         }
     }
 
-    /* otherwise don't return anything, will do a redirect from useEffect */
     return <>{ children }</>
 }

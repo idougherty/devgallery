@@ -3,6 +3,18 @@ import { ObjectId } from "mongodb";
 
 export default async function handler(req, res) {
     const { post_id } = req.query; 
+    const post = getPost(post_id)
+
+    console.log(post);
+
+    if(!post.error)
+        res.status(200).json(post);
+    else
+        res.status(500).json(post);
+}
+
+export async function getPost(post_id) {
+    let res;
     const client = getClient();
 
     try {
@@ -16,11 +28,13 @@ export default async function handler(req, res) {
         post.author = await db.collection("users")
             .findOne({ _id: post.author_id });
 
-        res.status(200).json(post);
+        res = post;
     } catch(error) {
         console.log(error);
-        res.status(500).json({error: 500, message: "oops"});
+        res = { error: 500, message: "oops" };
     } finally {
         await client.close();
     }
+
+    return JSON.parse(JSON.stringify(res));
 }

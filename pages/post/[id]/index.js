@@ -1,5 +1,7 @@
-import Layout from "pages/components/layout";
-import PostComponent from "./componentTypes/postComponent";
+import Layout from "components/layout/layout";
+import PostComponent from "components/postEditing/componentTypes/postComponent";
+import { getAllPosts } from "pages/api/post/all";
+import { getPost } from "pages/api/post/[post_id]";
 import styles from "styles/post.module.css";
 
 export default function Post({ post }) {
@@ -31,9 +33,7 @@ export default function Post({ post }) {
 
 export async function getStaticProps(context) {
     const { id } = context.params;
-    
-    const res = await fetch(process.env.BASE_URL + "/api/post/" + id);
-    const post = await res.json();
+    const post = await getPost(id);
 
     return {
         props: {
@@ -43,9 +43,8 @@ export async function getStaticProps(context) {
 }
 
 export async function getStaticPaths() {
-    const res = await fetch(process.env.BASE_URL + "/api/post/all");
-    const posts = await res.json();
-    
+    const posts = await getAllPosts();
+
     const paths = posts.map(post => {
         return { params: { id: post._id } }
     });
