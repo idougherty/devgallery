@@ -1,11 +1,9 @@
 .input {
     padding: 8px;
     color: var(--theme-dark);
-    background-color: #3d31;
-    border-color: var(--theme-main);
-    border-style: solid;
-    border-radius: 5px;
-    border-width: 2px;
+    background-color: #0601;
+    border: none;
+    border-bottom: solid 2px transparent;
     transition-property: background-color, border-color;
     transition-duration: 250ms;
     transition-timing-function: ease-out;
@@ -14,7 +12,6 @@
 
 .input:hover, .input:focus {
     border-color: var(--theme-accent);
-    background-color: #d331;
 }
 
 .input:focus {

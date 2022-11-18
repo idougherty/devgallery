@@ -12,6 +12,7 @@ body {
   margin: 0;
   font-family: monospace;
   color: var(--theme-dark);
+  min-height: 100vh;
   
   background-color: #FEDCCE;
   background-image: url("/background.svg");    
@@ -53,5 +54,12 @@ a {
   }
 
 .spinner {
-    animation: rotating 2s linear infinite;
+  animation: rotating 2s linear infinite;
+}
+
+.centered {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
 }

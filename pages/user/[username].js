@@ -1,24 +1,46 @@
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import Layout from "pages/components/layout";
 import PostList from "pages/components/postList";
+import { BiPlusCircle } from "react-icons/bi";
+import styles from "styles/user.module.css"
 
 export default function User({ user }) {
     const { data: session } = useSession();
+    const router = useRouter();
 
     const ownsPage = session?.user?.valid 
         && session.user._id == user._id; 
 
-    return (
-    <>
-        <Layout title={ "Dev Gallery | " + user.username }>
-            <h2>{ user.username }'s Posts</h2>
-            <PostList posts={ user.posts } />
+    const createPost = async () => {
+        const res = await fetch("/api/post/create", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ 
+                author_id: session.user._id
+            }),
+        });
 
+        const data = await res.json();
+
+        if(data.ok) {
+            router.push(`/post/${data.message}/edit`);
+        } else {
+            // TODO handle failure
+        }
+    }
+
+    return (
+    <Layout title={ "Dev Gallery | " + user.username }>
+        <h2>{ user.username }'s Posts
             { ownsPage && 
-                <button onClick={ () => alert("a") }>Create post!</button>
+                <button className={styles.createPost} onClick={ createPost }><BiPlusCircle /></button>
             }
-        </Layout>
-    </>
+        </h2>
+        <PostList posts={ user.posts } />
+    </Layout>
     );
 }
   

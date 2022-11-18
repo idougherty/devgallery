@@ -133,6 +133,23 @@
     align-items: center;
 }
 
+.emptyComponentButton {
+    font-family: inherit;
+    border: none;
+    display: inline-block;
+    border-radius: 5px;
+    background-color: var(--theme-white);
+    padding: 10px;
+    vertical-align: middle;
+    color: var(--theme-dark);
+    margin-left: auto;
+    cursor: pointer;
+}
+
+.emptyComponentButton:hover {
+    color: var(--theme-green);
+}
+
 .menuItem {
     width: 200px;
 }

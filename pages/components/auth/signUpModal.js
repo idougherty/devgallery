@@ -1,6 +1,6 @@
 import { signOut, useSession } from "next-auth/react";
 import { useRef, useState } from "react";
-import styles from "styles/modal.module.css";
+import styles from "styles/auth.module.css";
 import { Modal, ModalWrapper } from "../modal";
 
 export default function SignUpModal({ closeSignUp }) {

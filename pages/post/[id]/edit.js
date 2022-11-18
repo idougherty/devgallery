@@ -3,9 +3,8 @@ import { useEffect, useState } from "react";
 import { BiCheck, BiSync, BiError, BiLoaderAlt } from "react-icons/bi";
 import ComponentList from "./componentList";
 import styles from "styles/post.module.css";
-import { withRouter } from "next/router";
 
-export default function Post({ postData }) {
+export default function EditPost({ postData }) {
     if(!postData)
         return ( <Layout> <p>There was an issue retrieving this post. :(</p> </Layout> )
 
@@ -13,13 +12,14 @@ export default function Post({ postData }) {
     const [syncStatus, setSyncStatus] = useState("synced");
 
     useEffect(() => {
-        window.addEventListener('beforeunload', (e) => {
-            if(syncStatus != "synced") {
-                e.preventDefault();
-                e.returnValue = '';
-            }
-        });
-    });
+        console.log(syncStatus);
+
+        if(syncStatus != "synced") {
+            window.onbeforeunload = () => true;
+        } else {
+            window.onbeforeunload = undefined;
+        }
+    }, [syncStatus]);
 
     const syncPost = async () => {
         setSyncStatus("syncing");
@@ -81,6 +81,15 @@ export default function Post({ postData }) {
         </button>
     </Layout>
     );
+}
+
+EditPost.requireAuth = true;
+EditPost.verifyAuth = (props, user) => {
+    const { postData } = props;
+    const valid = user._id == postData.author_id;
+    const redirectUrl = `/post/${postData._id}`;
+
+    return { valid, redirectUrl };
 }
 
 export async function getStaticProps(context) {

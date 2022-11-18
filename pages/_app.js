@@ -1,5 +1,6 @@
 import 'styles/globals.css'
 import { SessionProvider } from "next-auth/react";
+import AuthGuard from './components/auth/authGuard';
 
 function MyApp({
   Component, 
@@ -7,7 +8,13 @@ function MyApp({
 }) {
   return (
     <SessionProvider session={session}>
-      <Component {...pageProps} />
+      {Component.requireAuth ? (
+        <AuthGuard pageProps={pageProps} verifyAuth={Component.verifyAuth}>
+          <Component {...pageProps} />
+        </AuthGuard>
+      ) : (
+        <Component {...pageProps} />
+      )}
     </SessionProvider>
   );
 }

@@ -88,7 +88,6 @@ function ImageUploadModal({ closeFunction, createImage }) {
         e.preventDefault();
         
         const image = form.current.image.files[0];
-        console.log(image.size);
 
         if(!image)
             return setError("Error finding image.");
@@ -135,8 +134,6 @@ function ImageUploadModal({ closeFunction, createImage }) {
             } else {
                 setError("There was an issue uploading your image.")
             }
-            console.log(data.message);
-
         });
     }
 
