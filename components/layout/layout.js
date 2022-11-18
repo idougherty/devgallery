@@ -20,8 +20,7 @@ export default function Layout({ children, auth, ...props }) {
             <title>{ props.title || "Dev Gallery" }</title>
             <meta name="description" content="Share your projects with a community of CS tinkerers."></meta>
             <link rel="preconnect" href="https://fonts.googleapis.com" />
-            <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
-            <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,200;0,400;1,300&display=swap" rel="stylesheet" />
+            <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;1,300&display=swap" rel="stylesheet" />
         </Head>
 
         <NavBar openLogin={ () => setSignInModal(true) }/>

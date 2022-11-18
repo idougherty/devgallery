@@ -8,7 +8,7 @@
     align-items: center;
     max-width: 850px;
     margin: 0 auto;
-    font-family: inherit;
+    font-family: var(--header-font);
     gap: 25px;
     padding: 0;
     list-style: none;

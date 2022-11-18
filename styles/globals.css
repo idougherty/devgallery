@@ -15,11 +15,13 @@
   --theme-grey: #F1DFDB;
   --theme-bg: #FEECE7;
   --theme-green: #2fb66c;
+  --header-font: 'Bitter', serif;
+  --body-font: monospace;
 }
 
 body {
   margin: 0;
-  font-family: 'Raleway', sans-serif;
+  font-family: var(--body-font);
   color: var(--theme-dark);
   min-height: 100vh;
   
@@ -31,6 +33,10 @@ body {
   background-size: calc(max(100vw, 1500px));
   background-repeat: no-repeat;
   background-position: top center;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--header-font);
 }
 
 .layout {
