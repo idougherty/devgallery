@@ -1,6 +1,6 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { getAllUsers } from "pages/api/user/all";
+// import { getAllUsers } from "pages/api/user/all";
 import { getUser } from "pages/api/user/[username]";
 import Layout from "components/layout/layout";
 import PostList from "components/postList";
@@ -46,7 +46,7 @@ export default function User({ user }) {
     );
 }
   
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
     const { username } = context.params;
     
     const user = await getUser(username);
@@ -55,18 +55,19 @@ export async function getStaticProps(context) {
         props: {
             user,
         },
+        // revalidate: 10,
     }
 }
 
-export async function getStaticPaths() {
-    const users = await getAllUsers();
+// export async function getStaticPaths() {
+//     const users = await getAllUsers();
     
-    const paths = users.map(user => {
-        return { params: { username: user.username } }
-    });
+//     const paths = users.map(user => {
+//         return { params: { username: user.username } }
+//     });
 
-    return {
-        paths: paths,
-        fallback: false,
-    }
-}
+//     return {
+//         paths: paths,
+//         fallback: false,
+//     }
+// }

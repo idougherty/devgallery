@@ -1,6 +1,6 @@
 import Layout from "components/layout/layout";
 import PostComponent from "components/postEditing/componentTypes/postComponent";
-import { getAllPosts } from "pages/api/post/all";
+// import { getAllPosts } from "pages/api/post/all";
 import { getPost } from "pages/api/post/[post_id]";
 import styles from "styles/post.module.css";
 
@@ -31,7 +31,7 @@ export default function Post({ post }) {
     );
 }
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
     const { id } = context.params;
     const post = await getPost(id);
 
@@ -39,18 +39,19 @@ export async function getStaticProps(context) {
         props: {
             post,
         },
+        // revalidate: 10,
     }
 }
 
-export async function getStaticPaths() {
-    const posts = await getAllPosts();
+// export async function getStaticPaths() {
+//     const posts = await getAllPosts();
 
-    const paths = posts.map(post => {
-        return { params: { id: post._id } }
-    });
+//     const paths = posts.map(post => {
+//         return { params: { id: post._id } }
+//     });
 
-    return {
-        paths: paths,
-        fallback: false,
-    }
-}
+//     return {
+//         paths: paths,
+//         fallback: false,
+//     }
+// }

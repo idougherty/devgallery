@@ -4,7 +4,7 @@ import { BiCheck, BiSync, BiError, BiLoaderAlt } from "react-icons/bi";
 import ComponentList from "components/postEditing/componentList";
 import styles from "styles/post.module.css";
 import { getPost } from "pages/api/post/[post_id]";
-import { getAllPosts } from "pages/api/post/all";
+// import { getAllPosts } from "pages/api/post/all";
 
 export default function EditPost({ postData }) {
     const [post, setPost] = useState({ ...postData });
@@ -94,7 +94,7 @@ EditPost.verifyAuth = (props, user) => {
     return { valid, redirectUrl };
 }
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
     const { id } = context.params;
     const postData = await getPost(id);
 
@@ -102,18 +102,19 @@ export async function getStaticProps(context) {
         props: {
             postData,
         },
+        // revalidate: 10,
     }
 }
 
-export async function getStaticPaths() {
-    const posts = await getAllPosts();
+// export async function getStaticPaths() {
+//     const posts = await getAllPosts();
 
-    const paths = posts.map(post => {
-        return { params: { id: post._id } }
-    });
+//     const paths = posts.map(post => {
+//         return { params: { id: post._id } }
+//     });
 
-    return {
-        paths: paths,
-        fallback: false,
-    }
-}
+//     return {
+//         paths: paths,
+//         fallback: false,
+//     }
+// }

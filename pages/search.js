@@ -12,7 +12,7 @@ export default function Search({ posts }) {
     );
 }
   
-export async function getStaticProps() {
+export async function getServerSideProps() {
     const posts = await getAllPosts();
     
     return {
