@@ -35,7 +35,7 @@ export default async function handler(req, res) {
             .updateOne(
                 { _id: ObjectId(author_id) },
                 { $push: { 
-                    post_ids: ObjectId(), 
+                    post_ids: post_id, 
                 }},
                 { upsert: false }
             );
