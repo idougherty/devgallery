@@ -1,5 +1,6 @@
-import Layout from "pages/components/layout";
-import PostList from "pages/components/postList";
+import Layout from "components/layout/layout";
+import PostList from "components/postList";
+import { getAllPosts } from "./api/post/all";
 
 export default function Home({ posts }) {
     return (
@@ -10,9 +11,8 @@ export default function Home({ posts }) {
     );
 }
   
-export async function getStaticProps() {
-    const res = await fetch(process.env.BASE_URL + "/api/post/all");
-    const posts = await res.json();
+export async function getServerSideProps() {
+    const posts = await getAllPosts();
     
     return {
         props: {

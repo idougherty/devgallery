@@ -3,6 +3,7 @@ import PostComponent from "./componentTypes/postComponent";
 import PostControls from "./postControls";
 import styles from "styles/post.module.css";
 import ComponentMenu from "./componentMenu";
+import { BiPlus, BiPlusCircle } from "react-icons/bi";
 
 export default function ComponentList({ post, updatePost }) {
     const [componentModal, setComponentModal] = useState(null);
@@ -47,6 +48,12 @@ export default function ComponentList({ post, updatePost }) {
 
     return (
     <div id="components" className={styles.components}>
+        { post.components.length == 0 && 
+            <button className={styles.emptyComponentButton} 
+                    onClick={() => setComponentModal(0) }>
+                Add Component <BiPlus />
+            </button>
+        }
         {
         post.components.map((component, idx) =>
             <div className={styles.componentWrapper} key={ idx } >

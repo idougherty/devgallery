@@ -1,7 +1,6 @@
 import styles from "styles/post.module.css";
 
 export default function ParagraphComponent({ component, editable, setContent }) {
-
     const handleChange = (e) => {
         const newContent = e.target.innerText;
         setContent(newContent);

@@ -1,6 +1,9 @@
 import Layout from "pages/components/layout";
 import PostComponent from "./componentTypes/postComponent";
 import CommentSection from "../../components/comment/commentSection";
+// import { getAllPosts } from "pages/api/post/all";
+import { getPost } from "pages/api/post/[post_id]";
+
 import styles from "styles/post.module.css";
 
 export default function Post({ post, comments }) {
@@ -31,11 +34,9 @@ export default function Post({ post, comments }) {
     );
 }
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
     const { id } = context.params;
-    
-    const res = await fetch(process.env.BASE_URL + "/api/post/" + id);
-    const post = await res.json();
+    const post = await getPost(id);
 
     const res2 = await fetch(process.env.BASE_URL + "/api/comments/" + id);
     const comments = await res2.json();
@@ -45,19 +46,19 @@ export async function getStaticProps(context) {
             post,
             comments,
         },
+        // revalidate: 10,
     }
 }
 
-export async function getStaticPaths() {
-    const res = await fetch(process.env.BASE_URL + "/api/post/all");
-    const posts = await res.json();
-    
-    const paths = posts.map(post => {
-        return { params: { id: post._id } }
-    });
+// export async function getStaticPaths() {
+//     const posts = await getAllPosts();
 
-    return {
-        paths: paths,
-        fallback: false,
-    }
-}
+//     const paths = posts.map(post => {
+//         return { params: { id: post._id } }
+//     });
+
+//     return {
+//         paths: paths,
+//         fallback: false,
+//     }
+// }

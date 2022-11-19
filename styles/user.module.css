@@ -1,0 +1,16 @@
+.createPost {
+    font-family: inherit;
+    border: none;
+    font-size: x-large;
+    display: inline-block;
+    border-radius: 5px;
+    background-color: transparent;
+    vertical-align: middle;
+    color: var(--theme-green);
+    margin-left: 5px;
+}
+
+.createPost:hover {
+    color: var(--theme-accent);
+    cursor: pointer;
+}

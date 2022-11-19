@@ -8,7 +8,7 @@
     align-items: center;
     max-width: 850px;
     margin: 0 auto;
-    font-family: monospace;
+    font-family: var(--header-font);
     gap: 25px;
     padding: 0;
     list-style: none;
@@ -32,6 +32,8 @@
 
 .title a {
     font-size: .8em;
+    text-transform: lowercase;
+    letter-spacing: 2px;
 }
 
 .navbar a:not(.title a):hover {

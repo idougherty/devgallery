@@ -5,28 +5,45 @@ export default async function handler(req, res) {
     if(req.method != "POST")
         return res.status(400).json({ error: 400, message: "Invalid request type." });
 
-    const post = req.body;
+    const { author_id } = req.body;
 
-    if(!post.title || !post.description)
+    if(!author_id)
         return res.status(422).json({ error: 422, message: "Update failed, please include a title and description." });
+
+    // TODO: authenticate user
 
     const client = getClient();
     try {
         await client.connect();
         const db = client.db("devgallery");
 
-        await db.collection("posts")
+        const post_id = ObjectId();
+
+        const postRes = await db.collection("posts")
+            .insertOne({ 
+                _id: post_id,
+                title: "Untitled Post",
+                description: "A new post.",
+                author_id: ObjectId(author_id),
+                components: [],
+            });
+
+        if(!postRes.acknowledged)
+            throw null;
+
+        const userRes = await db.collection("users")
             .updateOne(
-                { _id: ObjectId(post._id) },
-                { $set: {
-                    title: post.title,
-                    description: post.description,
-                    components: post.components,
+                { _id: ObjectId(author_id) },
+                { $push: { 
+                    post_ids: post_id, 
                 }},
-                { upsert: false, }
+                { upsert: false }
             );
 
-        res.status(201).json({ ok: true, status: 201, message: "Post content updated." });
+        if(!userRes.acknowledged)
+            throw null;
+        
+        res.status(201).json({ ok: true, status: 201, message: post_id });
     } catch(error) {
         console.log(error);
 

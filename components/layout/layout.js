@@ -1,6 +1,6 @@
-import NavBar from "pages/components/nav/navbar";
-import SignInModal from "pages/components/auth/signInModal";
-import SignUpModal from "pages/components/auth/signUpModal";
+import NavBar from "components/nav/navbar";
+import SignInModal from "components/auth/signInModal";
+import SignUpModal from "components/auth/signUpModal";
 import Head from "next/head";
 import Footer from "./footer";
 import { useSession } from "next-auth/react";
@@ -19,6 +19,8 @@ export default function Layout({ children, auth, ...props }) {
         <Head>
             <title>{ props.title || "Dev Gallery" }</title>
             <meta name="description" content="Share your projects with a community of CS tinkerers."></meta>
+            <link rel="preconnect" href="https://fonts.googleapis.com" />
+            <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;1,300&display=swap" rel="stylesheet" />
         </Head>
 
         <NavBar openLogin={ () => setSignInModal(true) }/>

@@ -1,7 +1,7 @@
 import { signOut, useSession } from "next-auth/react";
 import { useRef, useState } from "react";
-import styles from "styles/modal.module.css";
-import { Modal, ModalWrapper } from "../modal";
+import Modal from "components/modal";
+import styles from "styles/auth.module.css";
 
 export default function SignUpModal({ closeSignUp }) {
     const form = useRef(null);
@@ -45,18 +45,16 @@ export default function SignUpModal({ closeSignUp }) {
     }
     
     return (
-    <ModalWrapper>
-        <Modal title="Sign Up:" closeFunction={ handleClose }>
-            <form ref={ form } onSubmit={ handleSignUp }>
-                <label className={styles.label} name="user">Username:</label><br />
-                <input className={styles.input} name="user" type="text" /><br /><br />
-                <label className={styles.label} name="school">School:</label><br />
-                <input className={styles.input} name="school" type="text" /><br />
-                <p className={styles.error}>{ error }&nbsp;</p>
+    <Modal title="Sign Up:" closeFunction={ handleClose } strictClose>
+        <form ref={ form } onSubmit={ handleSignUp }>
+            <label className={styles.label} name="user">Username:</label><br />
+            <input className={styles.input} name="user" type="text" /><br /><br />
+            <label className={styles.label} name="school">School:</label><br />
+            <input className={styles.input} name="school" type="text" /><br />
+            <p className={styles.error}>{ error }&nbsp;</p>
 
-                <input className={styles.submit} type="submit" />
-            </form>
-        </Modal>
-    </ModalWrapper>
+            <input className={styles.submit} type="submit" />
+        </form>
+    </Modal>
     );
 }

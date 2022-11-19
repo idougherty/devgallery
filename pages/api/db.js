@@ -1,10 +1,10 @@
 import { MongoClient, ServerApiVersion, ObjectId } from 'mongodb';
 
 const uri = process.env.MONGO_URL;
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+// const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
 export default function getClient() {
-    return client;
+    return new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });;
 }
 
 export async function findUser({ _id, username, email }) {
@@ -23,6 +23,8 @@ export async function findUser({ _id, username, email }) {
     if(query.length == 0)
         return null;
 
+    const client = getClient();
+
     try {
         await client.connect();
 
@@ -39,6 +41,8 @@ export async function findUser({ _id, username, email }) {
 }
 
 export async function createUser({ _id, email, username }) {
+    const client = getClient();
+    
     try {
         await client.connect();
     
