@@ -1,40 +1,89 @@
-.reply {
-    grid-column: 1/ 3;
-}
-
-.reply button {
-    padding: 5px;
-}
-
 .commentBox {
-    width: calc(100% - 22px);
-    min-width: calc(100% - 22px);
-    max-width: calc(100% - 22px);
+    width: 100%;
+    box-sizing: border-box;
     min-height: 60px;
     height: 60px;
     padding: 10px;
 }
 
 .comment {
-    display: grid;
-    grid-template-columns: 1fr max-content;
-    grid-gap: 10px;
     margin-top: 10px;
-    background-color: orange;
-    padding: 20px;
+    background-color: var(--theme-grey);
+    box-shadow: 3px 3px 5px #0003;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.commentHeader {
+    display: flex;
+}
+
+.commentHeader > p {
+    margin-left: auto;
 }
 
 .comment h4,
 .comment p {
-    margin: 0;
-    padding: 0;
-}
-
-.comment button {
-    width: min-content;
-    margin-left: auto;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 5px;
 }
 
 .cancelBtn {
     margin-right: 5px;
+}
+
+.commentHeader > svg {
+    font-size: x-large;
+    vertical-align: middle;
+    cursor: pointer;
+    font-family: inherit;
+    visibility: hidden;
+    margin-left: 10px;
+}
+
+.comment:hover .commentHeader > svg {
+    visibility: visible;
+}
+
+.replyBtn:hover {
+    color: var(--theme-green)
+}
+
+.deleteBtn:hover {
+    color: var(--theme-red)
+}
+
+.reply button {
+    border-radius: 5px;
+    font-family: inherit;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.reply textarea {
+    border: none;
+    border-radius: 5px;
+}
+
+.cancelBtn {
+    background-color: var(--theme-red);
+    color: white;
+    width: 10%;
+}
+
+.submitBtn {
+    background-color: var(--theme-green);
+    color: white;
+    width: 40%;
+}
+
+.reply button:hover {
+    background-color: var(--theme-accent);
+}
+
+.replyName {
+    color: var(--theme-main);
 }

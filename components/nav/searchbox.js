@@ -18,15 +18,13 @@ export default function SearchBox() {
     }
 
     return (
-    <>
-        <form className={styles.form} ref={form} onSubmit={ handleSearch }>
-            <input  name="input" 
-                    type="text" 
-                    placeholder="Search..." 
-                    defaultValue={ query }
-                    className={styles.input} />
-            <BiSearchAlt className={styles.icon}/>
-        </form>
-    </>
+    <form className={styles.form} ref={form} onSubmit={ handleSearch }>
+        <input  name="input" 
+                type="text" 
+                placeholder="Search..." 
+                defaultValue={ query }
+                className={styles.input} />
+        <BiSearchAlt className={styles.icon} onClick={ handleSearch } />
+    </form>
     );
 }

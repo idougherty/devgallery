@@ -1,12 +1,13 @@
-import Layout from "pages/components/layout";
-import PostComponent from "./componentTypes/postComponent";
-import CommentSection from "../../components/comment/commentSection";
+import Layout from "components/layout/layout";
+import PostComponent from "components/postEditing/componentTypes/postComponent";
+import CommentSection from "components/commentSection";
 // import { getAllPosts } from "pages/api/post/all";
 import { getPost } from "pages/api/post/[post_id]";
 
 import styles from "styles/post.module.css";
+import { getComments } from "pages/api/comments/[post_id]";
 
-export default function Post({ post, comments }) {
+export default function Post({ post, commentData }) {
     if(!post)
         return <p>There was an issue retrieving this post. :(</p>
 
@@ -29,7 +30,7 @@ export default function Post({ post, comments }) {
             ) }
             </div>
         </div>
-        <CommentSection comments={comments} post_id={post._id} />
+        <CommentSection commentData={commentData} post_id={post._id} />
     </Layout>
     );
 }
@@ -38,13 +39,12 @@ export async function getServerSideProps(context) {
     const { id } = context.params;
     const post = await getPost(id);
 
-    const res2 = await fetch(process.env.BASE_URL + "/api/comments/" + id);
-    const comments = await res2.json();
+    const commentData = await getComments(id);
 
     return {
         props: {
             post,
-            comments,
+            commentData,
         },
         // revalidate: 10,
     }

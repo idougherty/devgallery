@@ -12,50 +12,84 @@ export default async function handler(req, res) {
 
         switch(req.method) {
             case "GET":
-                var comments = await db.collection("comments")
-                    .find({ post_id: oid, parent_id: new ObjectId("000000000000000000000000") })
-                    .sort({ createdDate: 1 })
-                    .toArray();
+                // const comments = await db.collection("comments")
+                //     .find({ post_id: oid, parent_id: null })
+                //     .sort({ createdDate: 1 })
+                //     .toArray();
         
-                for (var comment of comments) {
-                    comment.author = await db.collection("users")
-                        .findOne({ _id: comment.author_id }); 
-        
-                    comment.replies = await db.collection("comments")
-                        .find({ parent_id: comment._id })
-                        .sort({ createdDate: 1 })
-                        .toArray();
-        
-                    for (var reply of comment.replies) {
-                        reply.author = await db.collection("users")
-                            .findOne({ _id: reply.author_id }); 
-        
-                        // TODO: probs wanna format this in another way.
-                        reply.formattedDate = new Date(reply.createdDate).toUTCString();     
-                    }
-        
-                    // TODO: probs wanna format this in another way.
-                    comment.formattedDate = new Date(comment.createdDate).toUTCString();       
-                };
+                // for (const comment of comments) {
+                //     comment.replies = await db.collection("comments")
+                //         .find({ parent_id: comment._id })
+                //         .sort({ createdDate: 1 })
+                //         .toArray();      
+                // };
+                const comments = await getComments(post_id);
             
                 res.status(200).json(comments);
                 break;
             case "POST":
                 const body = JSON.parse(req.body);
 
+                body._id = ObjectId();
                 body.post_id = oid;
-                body.parent_id = new ObjectId(body.parent_id);
+                body.parent_id = body.parent_id && ObjectId(body.parent_id);
                 body.createdDate = new Date(body.createdDate);
                 
-                const comment = await db.collection("comments").insertOne(body);
+                await db.collection("comments").insertOne(body);
 
-                res.status(200).json(comment);
+                body.replies = [];
+
+                res.status(200).json({ ok: true, status: 200, message: body });
+                break;
+            case "DELETE":
+                //TODO: delete comments
+                const { _id } = JSON.parse(req.body);
+
+                await db.collection("comments")
+                    .deleteMany({$or: [
+                        { _id: ObjectId(_id) },
+                        { parent_id: ObjectId(_id) }
+                    ]});
+
+                res.status(200).json({ ok: true, status: 200, message: "Success." });
                 break;
         }       
     } catch(error) {
         console.log(error);
-        res.status(500).json({error: 500, message: "oops"});
+        res.status(500).json({ ok: false, status: 500, message: "Internal error." });
     } finally {
         await client.close();
     }
+}
+
+export async function getComments(post_id) {
+    let res;
+    const client = getClient();
+
+    try {
+        await client.connect();
+        const db = client.db("devgallery");
+        const oid = ObjectId(post_id);
+
+        const comments = await db.collection("comments")
+            .find({ post_id: oid, parent_id: null })
+            .sort({ createdDate: 1 })
+            .toArray();
+
+        for (const comment of comments) {
+            comment.replies = await db.collection("comments")
+                .find({ parent_id: comment._id })
+                .sort({ createdDate: 1 })
+                .toArray();      
+        };
+
+        res = comments;
+    } catch(error) {
+        console.log(error);
+        res = { error: 500, message: "oops" };
+    } finally {
+        await client.close();
+    }
+
+    return JSON.parse(JSON.stringify(res));
 }

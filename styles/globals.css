@@ -3,9 +3,10 @@
   --theme-accent: #005246;
   --theme-dark: #402E32;
   --theme-white: #FCFCFF;
-  --theme-grey: #F1DFDB;
+  --theme-grey: #f0dbf1;
   --theme-bg: #DACEF1;
   --theme-green: #2fb66c;
+  --theme-red: #e05858;
   --header-font: 'Bitter', serif;
   --body-font: monospace;
 }
